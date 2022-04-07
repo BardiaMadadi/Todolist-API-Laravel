@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+// api prefix
+Route::prefix('/api')->group(function (){
+
+    Route::prefix('/v1')->group(function (){
+
+        Route::prefix('/user')->group(function (){
+
+            Route::get('/add/{username?}/{email?}/{pwd?}',[UserController::class,'add']);
+
+        });
+
+    });
+
 });
