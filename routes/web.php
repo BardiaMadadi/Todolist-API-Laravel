@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ColumnController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,14 @@ Route::prefix('/api')->group(function (){
         Route::prefix('/user')->group(function (){
 
             Route::get('/add/{username?}/{email?}/{pwd?}',[UserController::class,'add']);
+            Route::get('/get/{id?}',[UserController::class,'get']);
+
+        });
+
+        Route::prefix('/column')->group(function (){
+
+            Route::get('/add/{title?}/{desc?}/{id?}',[ColumnController::class,'add']);
+//            Route::get('/get/{id?}',[UserController::class,'get']);
 
         });
 

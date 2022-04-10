@@ -11,4 +11,9 @@ class User extends Model
     use HasFactory;
 
     protected $fillable = ['username','pwd','email'];
+
+    public function column(){
+        return $this->hasOne(Column::class);
+    }
+
 }

@@ -15,7 +15,7 @@ class UserController extends Controller
     {
 
         try {
-            $validator = Validator::make($request->all(), [
+            $validator = Validator::make($request->route()->parameters(), [
                 'username'=>'String|max:20|required',
                 'pwd'=> 'String|max:40|required',
                 'email'=> 'required|email|unique:users'
@@ -42,6 +42,51 @@ class UserController extends Controller
 
         }
 
+
+    }
+
+    public function get(Request $request)
+    {
+        try {
+
+            $id = $request['id'];
+            if (isset($id)){
+
+                try {
+
+                    $user = User::find($id);
+
+                    if($user != null){
+                        return $user;
+
+                    }else{
+                        return response(['message'=>'There is not any User with that id'],400);
+                    }
+
+
+                }catch (Exception $exception){
+                    return response(['message'=>'cant get user from table !'],400);
+                }
+
+
+            }else{
+
+                try {
+                    $user = User::all();
+                    if($user != null){
+                        return User::all();
+                    }else{
+                        return response(['message'=>'There is not any User with that id'],400);
+                    }
+
+                }catch (Exception $exception){
+                    return response(['message'=>'cant get all users from table !'],400);
+                }
+
+            }
+        }catch (Exception $exception){
+            return response(['message'=>'There is problem with controler / db'],400);
+        }
 
     }
 
