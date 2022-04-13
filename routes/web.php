@@ -32,7 +32,7 @@ Route::prefix('/api')->group(function (){
         Route::prefix('/column')->group(function (){
 
             Route::get('/add/{title?}/{desc?}/{id?}',[ColumnController::class,'add']);
-//            Route::get('/get/{id?}',[UserController::class,'get']);
+            Route::get('/get',[ColumnController::class,'get']);
 
         });
 

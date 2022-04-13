@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Column;
-use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -52,4 +51,38 @@ class ColumnController extends Controller
         }
 
     }
+
+    public function get(Request $request)
+    {
+        $id = $request['id'];
+        $user_id = $request['userid'];
+
+
+        if(isset($id)){
+            $column = Column::find($id);
+            if($column != null){
+                return $column;
+            }else{
+                return response(["message" => "there is not any response with that id"],400);
+            }
+        }elseif(isset($user_id)){
+            $column = Column::where('user_id',$user_id)->get();
+            if(count($column) > 0){
+                return $column;
+            }else{
+                return response(["message" => "there is not any response with that id"],400);
+            }
+        }
+        else{
+            $column = Column::all();
+            if(count($column) > 0){
+                return $column;
+            }else{
+                return response(["message" => "there is not any response"],400);
+            }
+        }
+
+
+    }
+
 }
