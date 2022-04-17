@@ -58,31 +58,57 @@ class ColumnController extends Controller
         $user_id = $request['userid'];
 
 
-        if(isset($id)){
+        if (isset($id)) {
             $column = Column::find($id);
-            if($column != null){
+            if ($column != null) {
                 return $column;
-            }else{
-                return response(["message" => "there is not any response with that id"],400);
+            } else {
+                return response(["message" => "there is not any response with that id"], 400);
             }
-        }elseif(isset($user_id)){
-            $column = Column::where('user_id',$user_id)->get();
-            if(count($column) > 0){
+        } elseif (isset($user_id)) {
+            $column = Column::where('user_id', $user_id)->get();
+            if (count($column) > 0) {
                 return $column;
-            }else{
-                return response(["message" => "there is not any response with that id"],400);
+            } else {
+                return response(["message" => "there is not any response with that id"], 400);
             }
-        }
-        else{
+        } else {
             $column = Column::all();
-            if(count($column) > 0){
+            if (count($column) > 0) {
                 return $column;
-            }else{
-                return response(["message" => "there is not any response"],400);
+            } else {
+                return response(["message" => "there is not any response"], 400);
             }
         }
 
 
     }
 
+    public function update(Request $request)
+    {
+        $id = $request['id'];
+        $title = $request['title'];
+        $desc = $request['desc'];
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'String|max:20|required',
+            'desc' => 'String|max:255|required',
+            'id' => 'String|max:20|exists:users|required'
+
+        ]);
+        if (!$validator->fails()) {
+            $column = Column::find($id);
+            if ($column != null) {
+                $column->title = $title;
+                $column->desc = $desc;
+                $column->saveOrFail();
+                return response(["message" => "column updated !"], 200);
+            } else {
+                return response(["message" => "there is not any response with that id"], 400);
+            }
+        } else {
+            return response(["message" => "there is not any response with inserted data"], 400);
+        }
+    }
 }
+

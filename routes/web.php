@@ -33,6 +33,8 @@ Route::prefix('/api')->group(function (){
 
             Route::get('/add/{title?}/{desc?}/{id?}',[ColumnController::class,'add']);
             Route::get('/get',[ColumnController::class,'get']);
+            Route::get('/update',[ColumnController::class,'update']);
+
 
         });
 
