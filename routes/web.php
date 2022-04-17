@@ -26,6 +26,7 @@ Route::prefix('/api')->group(function (){
 
             Route::get('/add/{username?}/{email?}/{pwd?}',[UserController::class,'add']);
             Route::get('/get/{id?}',[UserController::class,'get']);
+            Route::get('/update',[UserController::class,'update']);
 
         });
 
