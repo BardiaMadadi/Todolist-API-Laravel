@@ -18,4 +18,8 @@ class Column extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function column(){
+        return $this->hasOne(Row::class);
+    }
+
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ColumnController;
+use App\Http\Controllers\RowController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,15 @@ Route::prefix('/api')->group(function (){
             Route::get('/add/{title?}/{desc?}/{id?}',[ColumnController::class,'add']);
             Route::get('/get',[ColumnController::class,'get']);
             Route::get('/update',[ColumnController::class,'update']);
+
+
+        });
+
+        Route::prefix('/row')->group(function (){
+
+            Route::get('/add/{title?}/{id?}',[RowController::class,'add']);
+            Route::get('/get',[RowController::class,'get']);
+            Route::get('/update',[RowController::class,'update']);
 
 
         });
